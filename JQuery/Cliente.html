@@ -1,0 +1,54 @@
+<html>  
+<head>  
+<title>Formulario.</title> 
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<!-- aqui empieza ajax  -->
+
+<script>   
+$(function(){
+ $("#Formulario").submit(function(){
+ var url = "Servidor.php"; // El script a dónde se realizará la petición.
+    $.ajax({
+           type: "POST",
+           url: url,
+           data: $("#Formulario").serialize(), // Adjuntar los campos del formulario enviado.
+           success: function(data)
+           {
+               $("#respuesta").html(data); // Mostrar la respuestas del script PHP.
+           }
+         });
+
+    return false; // Evitar ejecutar el submit del formulario.
+ });
+});
+</script>
+
+<!-- aqui termina ajax  -->
+</head>  
+<body>  
+<form id='Formulario' action="Servidor.php" method="post">
+<h3>Calculadora con JQuery</h3>
+	Valor1:
+	<br>
+	<input type="text" name="T1" id="T1">
+	<br>
+    Valor2:
+    <br>
+    <input type="text" name="T2" id="T2">
+    <br>
+    Operacion:
+    <br>
+<select name="operacion" id= "operacion">
+     <option>Suma</option>
+     <option>Resta</option>
+     <option>Multiplicacion</option>
+     <option>Division</option>  
+</select>
+<br>
+<input type="submit" id="calcular" value="Calcular" />
+ <br/>
+<div id='respuesta'></div>
+</form> 
+
+</body> 
+</html> 

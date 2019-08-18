@@ -1,0 +1,62 @@
+<html>  
+<head>  
+<title>Formulario.</title> 
+<script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.3.0/prototype.js"></script>
+<!-- aqui empieza ajax  -->
+<script type='text/javascript'>
+
+        document.observe('dom:loaded', function()
+        {
+            Event.observe('calcular', 'click', procesar);
+        });
+
+        function procesar()
+        {
+            new Ajax.Request('Servidor.php',                                        
+            {
+                method:       'post',                                               
+                parameters:   $('Formulario').serialize(true),                      
+                onSuccess: function(transport)
+                {  
+                    $('respuesta').update(transport.responseText);
+                },                
+                onFailure: function(transport)
+                {
+                    /* Limpiar cualquier resultado anterior */
+                    
+                    $('respuesta').update('Error');
+                }
+            });
+        }
+        
+        </script>
+
+<!-- aqui termina ajax  -->
+</head>  
+<body>  
+<form id='Formulario' action='#' method='post'>
+<h3>Calculadora con Prototype</h3>
+	Valor1:
+	<br>
+	<input type="text" name="T1" id="T1">
+	<br>
+    Valor2:
+    <br>
+    <input type="text" name="T2" id="T2">
+    <br>
+    Operacion:
+    <br>
+<select name="operacion" id= "operacion">
+     <option>Suma</option>
+     <option>Resta</option>
+     <option>Multiplicacion</option>
+     <option>Division</option>  
+</select>
+<br>
+<input type="button" id="calcular" value="Calcular" />
+ <br/>
+<div id='respuesta'></div>
+</form> 
+
+</body> 
+</html> 

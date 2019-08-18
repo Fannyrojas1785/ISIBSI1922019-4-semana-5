@@ -1,0 +1,60 @@
+<html>  
+<head>  
+<title>Formulario.</title> 
+<script src="https://ajax.googleapis.com/ajax/libs/mootools/1.6.0/mootools.min.js"></script>
+<!-- aqui empieza ajax  -->
+
+<script>
+window.addEvent('domready', function() {
+   //Vamos a recibir el elemento formulario
+   elementoFormulario = $("Formulario");
+   //Vamos a añadir un evento al formulario para cuando se envíe
+   elementoFormulario.addEvent('submit', function(e) {
+      //primero voy a parar el evento para que no se envíe como lo haría normalmente
+      e.stop();
+      //Aquí podríamos hacer acciones como mostrar la típica imagen de cargando de Ajax
+      //Luego definimos qué hacer cuando se envía el formulario 
+      //Aquí "this" se refiere al formulario sobre el que defino el evento
+      this.set('send', {
+         //onComplete sirve para definir qué hacer cuando se recibe la respuesta
+         onComplete: function(respuesta) { 
+            //escribo la respuesta en la capa "resultado"
+            $("respuesta").set('html', respuesta);
+         }
+      });
+      //Envío el formulario
+      this.send();
+   });
+});
+</script>
+
+
+<!-- aqui termina ajax  -->
+</head>  
+<body>  
+<form id='Formulario' action="Servidor.php" method="post">
+<h3>Calculadora con Mootools</h3>
+	Valor1:
+	<br>
+	<input type="text" name="T1" id="T1">
+	<br>
+    Valor2:
+    <br>
+    <input type="text" name="T2" id="T2">
+    <br>
+    Operacion:
+    <br>
+<select name="operacion" id= "operacion">
+     <option>Suma</option>
+     <option>Resta</option>
+     <option>Multiplicacion</option>
+     <option>Division</option>  
+</select>
+<br>
+<input type="submit" id="calcular" value="Calcular" />
+ <br/>
+<div id='respuesta'></div>
+</form> 
+
+</body> 
+</html> 
